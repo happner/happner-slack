@@ -56,7 +56,7 @@ describe(filename, function() {
         'happner-slack': {
           $configure: function(defaultConfig) {
             var config = defaultConfig.component.config;
-            config.command.token = 'GOODTOKEN';
+            config.command.tokens.push('GOODTOKEN');
             return defaultConfig;
           }
         },
