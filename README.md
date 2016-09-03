@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/happner/happner-slack.svg?branch=master)](https://travis-ci.org/happner/happner-slack)
+[![npm](https://img.shields.io/npm/v/happner-slack.svg)](https://www.npmjs.com/package/happner-slack) [![Build Status](https://travis-ci.org/happner/happner-slack.svg?branch=master)](https://travis-ci.org/happner/happner-slack)
 
 # happner-slack
 
