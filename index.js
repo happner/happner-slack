@@ -28,8 +28,8 @@ HappnerSlack.prototype.command = function ($happn, req, res) {
    };
    */
 
-  if (!$happn.config.command || !$happn.config.command.token) {
-    $happn.log.warn('missing config.command.token');
+  if (!$happn.config.command || !$happn.config.command.tokens) {
+    $happn.log.warn('missing config.command.tokens');
     res.statusCode = 500;
     return res.end();
   }
@@ -49,7 +49,7 @@ HappnerSlack.prototype.command = function ($happn, req, res) {
     return res.end();
   }
 
-  if (req.body.token !== $happn.config.command.token) {
+  if ($happn.config.command.tokens.indexOf(req.body.token) < 0) {
     $happn.log.warn('bad token from slack for url: %s', req.url);
     res.statusCode = 403;
     return res.end();

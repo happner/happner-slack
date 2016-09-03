@@ -20,8 +20,14 @@ components: {
   'happner-slack': {
     $configure: function (defaultConfig) {
       var config = defaultConfig.component.config;
-      config.command.token = 'SLACKTOKEN';
-      // supports only one token, all slack commands sent to this mesh will need to use this token
+      
+      // supports miltiple tokens so that multiple slack commands can post here
+      config.command.tokens.push('SLACKTOKEN1');
+      config.command.tokens.push('SLACKTOKEN2');
+      
+      // note: if process.env.SLACK_COMMAND_TOKENS = 'token1,token2,...'
+      //       then those will be pre-loaded into defaultConfig
+      
       return defaultConfig;
     }
   },

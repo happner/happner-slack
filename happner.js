@@ -1,3 +1,11 @@
+
+var tokens = [];
+if (process.env.SLACK_COMMAND_TOKENS) {
+  tokens = process.env.SLACK_COMMAND_TOKENS.split(',').map(function(token) {
+    return token.trim();
+  });
+}
+
 module.exports.configs = {
   'default-config': {
     component: {
@@ -5,7 +13,7 @@ module.exports.configs = {
       config: {
         startMethod: 'start',
         command: {
-          token: process.env.SLACK_COMMAND_TOKEN
+          tokens: tokens
         },
         web: {
           routes: {
