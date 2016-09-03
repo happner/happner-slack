@@ -1,0 +1,20 @@
+{
+  "name": "happner-slack",
+  "version": "0.0.1",
+  "description": "happner slack integration",
+  "main": "index.js",
+  "scripts": {
+    "test": "mocha test/func-*"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.15.2",
+    "request": "^2.74.0"
+  },
+  "devDependencies": {
+    "happner": "^1.19.2",
+    "mocha": "^3.0.2",
+    "should": "^11.1.0"
+  }
+}

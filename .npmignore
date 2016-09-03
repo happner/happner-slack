@@ -1,0 +1,5 @@
+.idea
+npm-debug.log
+coverage
+.DS_Store
+.travis.yml
