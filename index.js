@@ -59,6 +59,14 @@ HappnerSlack.prototype.command = function ($happn, req, res) {
   var component = parts[1];
   var method = parts[2];
 
+  if (component === '' || typeof method === 'undefined') {
+    res.setHeader('content-type', 'application/json');
+    return res.end(JSON.stringify({
+      response_type: 'ephemeral',
+      text: 'Error: Unspecified component/method in url'
+    }));
+  }
+
   if (
     !$happn.exchange.hasOwnProperty(component) ||
     !$happn.exchange[component].hasOwnProperty(method) ||
@@ -67,7 +75,7 @@ HappnerSlack.prototype.command = function ($happn, req, res) {
     res.setHeader('content-type', 'application/json');
     return res.end(JSON.stringify({
       response_type: 'ephemeral',
-      text: 'Error: Missing ' + component + '/' + method + ' (component/method)',
+      text: 'Error: Missing ' + component + '/' + method + ' (component/method)'
     }));
   }
 
