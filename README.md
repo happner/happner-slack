@@ -60,6 +60,8 @@ Create a `webhook` integration in slack resulting approximately as follows:
 * Contained in the slack setup is a `url` that should go into the mesh config described above.
 * Note that although the happner-slack component supports only one webhook config, messages can be posted to any (public) channel in the team-domain using the same webhook.
 
+(missing images? see [github readme](https://github.com/happner/happner-slack))
+
 ## Slack compatible exchange methods
 
 In the above setup, execution of `/some-command` in slack will call `exchange.componentName.methodName(payload, callback)` with the command payload as follows:
@@ -98,7 +100,10 @@ Post messages from other mesh components via `$happn.exchange`.
 
 ```js
 var message = {
-  text: "Some text"
+  text: "Some text",
+  // channel: "#general", // post to alternative (public) channel in the team-domain
+  // username: "bob the bot", // post as alternative user
+  // icon_emoji: ":earth_africa:" // post with alternative icon
 }
 
 $happn.exchange['happner-slack'].post(message)  
@@ -107,5 +112,12 @@ $happn.exchange['happner-slack'].post(message)
   })
   .catch(function(error) {
     // failed
+    
+    // response from slack if "Error: slack api error"
+    // error.statusCode
+    // error.body
   });
 ```
+
+[slack message formatting](https://api.slack.com/docs/message-formatting)
+[emoji_icons](http://unicodey.com/emoji-data/table.htm)
