@@ -10,7 +10,31 @@ HappnerSlack.prototype.start = function ($happn, callback) {
   callback();
 };
 
-HappnerSlack.prototype.command = function ($happn, req, res) {
+HappnerSlack.prototype.post = function($happn, message, callback) {
+  if (!$happn.config.webhook || !$happn.config.webhook.url) {
+    return callback(new Error('missing config.webhook.url'));
+  }
+
+  request.post({
+    url: $happn.config.webhook.url,
+    headers: {
+      'content-type': 'application/json'
+    },
+    body: JSON.stringify(message)
+  }, function(err, res, body) {
+    if (err) return callback(err);
+    if (res.statusCode !== 200) {
+      var error = new Error('slack api error');
+      error.statusCode = res.statusCode;
+      error.body = body;
+      return callback(error);
+    }
+    callback();
+  });
+
+};
+
+HappnerSlack.prototype.__command = function ($happn, req, res) {
   $happn.log.info('command: %s', req.url);
 
   /*
@@ -91,6 +115,13 @@ HappnerSlack.prototype.command = function ($happn, req, res) {
   $happn.exchange[component][method](req.body)
 
     .then(function(result) {
+
+      if (!result) {
+        // the exchange method makes no reply to slash,
+        // or does it's own reply, eg with happner-slash.post()
+        return;
+      }
+
       request.post({
         url: responseUrl,
         headers: {

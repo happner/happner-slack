@@ -15,9 +15,12 @@ module.exports.configs = {
         command: {
           tokens: tokens
         },
+        webhook: {
+          url: process.env.SLACK_WEBHOOK_URL
+        },
         web: {
           routes: {
-            command: ['__formDecode', 'command']
+            command: ['__formDecode', '__command']
           }
         }
       }
