@@ -130,6 +130,23 @@ describe(filename, function() {
     });
   });
 
+  it('responds with missing component/method in url', function(done) {
+    request.post({
+      url: 'http://localhost:55000/happner-slack/command',
+      form: {
+        token: 'GOODTOKEN'
+      }
+    }, function(err, res, body) {
+      try {
+        res.headers['content-type'].should.equal('application/json');
+        JSON.parse(body).text.should.equal('Error: Unspecified component/method in url');
+        done();
+      } catch (e) {
+        done(e);
+      }
+    });
+  });
+
   it('responds with missing component/method', function(done) {
     request.post({
       url: 'http://localhost:55000/happner-slack/command/missingComponent/missingMethod',
